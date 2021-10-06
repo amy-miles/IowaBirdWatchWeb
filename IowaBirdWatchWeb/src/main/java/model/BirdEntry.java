@@ -1,6 +1,8 @@
 
 
 package model;
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,6 +27,8 @@ public class BirdEntry {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private int id;
+	@Column(name = "DATE")
+	private LocalDate siteDate;
 	@Column(name = "COUNTY")
 	private String county;
 	@Column(name = "BIRD")
@@ -37,12 +41,18 @@ public class BirdEntry {
 	public BirdEntry() {
 		
 	}
-	
+
 	/**
 	 * BirdEntry constructor with params
 	 * @param county the county to be set
 	 * @param bird the bird to be set
 	 */
+	public BirdEntry(LocalDate siteDate, String county, String bird) {
+		this.siteDate = siteDate;
+		this.county = county;
+		this.bird = bird;
+	}
+	
 	public BirdEntry(String county, String bird) {
 		this.county = county;
 		this.bird = bird;
@@ -60,6 +70,20 @@ public class BirdEntry {
 	 */
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	/**
+	 * @return the siteDate
+	 */
+	public LocalDate getSiteDate() {
+		return siteDate;
+	}
+
+	/**
+	 * @param siteDate the siteDate to set
+	 */
+	public void setSiteDate(LocalDate siteDate) {
+		this.siteDate = siteDate;
 	}
 
 	/**
@@ -94,7 +118,7 @@ public class BirdEntry {
 	 * @return String
 	 */
 	public String returnBirdDetails() {
-		return this.county + ":" + this.bird;
+		return this.siteDate + ":" + this.county + ":" + this.bird;
 	}
 	
 }

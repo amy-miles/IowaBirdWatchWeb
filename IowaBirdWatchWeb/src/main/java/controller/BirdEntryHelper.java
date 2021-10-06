@@ -1,5 +1,6 @@
 package controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -47,7 +48,8 @@ public class BirdEntryHelper {
 	public void deleteSighting(BirdEntry toDelete) {
 		EntityManager em = emfactory.createEntityManager();
 		em.getTransaction().begin();
-		TypedQuery<BirdEntry> typedQuery = em.createQuery("select be from BirdEntry be where be.county = :selectedCounty and be.bird = :selectedBird", BirdEntry.class);
+		TypedQuery<BirdEntry> typedQuery = em.createQuery("select be from BirdEntry be where be.siteDate = :selectedDate and be.county = :selectedCounty and be.bird = :selectedBird", BirdEntry.class);
+		typedQuery.setParameter("selectedDate", toDelete.getSiteDate());
 		typedQuery.setParameter("selectedCounty", toDelete.getCounty());
 		typedQuery.setParameter("selectedBird", toDelete.getBird());
 		typedQuery.setMaxResults(1);
@@ -80,6 +82,16 @@ public class BirdEntryHelper {
 		em.getTransaction().commit();
 		em.close();
 		
+	}
+	
+	public List<BirdEntry> searchForItemByDate(LocalDate siteDate){
+		EntityManager em = emfactory.createEntityManager();
+		em.getTransaction().begin();
+		TypedQuery<BirdEntry> typedQuery = em.createQuery("select be from BirdEntry where be.date = :selectedDate", BirdEntry.class);
+		typedQuery.setParameter("selectedDate", siteDate);
+		List<BirdEntry> foundSightings = typedQuery.getResultList();
+		em.close();
+		return foundSightings;
 	}
 
 	/**

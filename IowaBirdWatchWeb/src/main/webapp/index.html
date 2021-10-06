@@ -6,8 +6,11 @@
 </head>
 <body>
 	<form action="addSightingServlet" method= "post">
-		County: <input type="text" name= "county">
-		Bird: <input type="text" name= "bird">
+		Sighting Date: <input type="text" name="month" placeholder="mm" size="4">
+						<input type="text" name = "day" placeholder="dd" size="4">
+						<input type="text" name="year" placeholder="yyyy" size="4"><br />
+		County: <input type="text" name= "county"><br />
+		Bird: <input type="text" name= "bird"><br />
 		<input type="submit" value="Add Sighting">
 	</form> <br />
 	<a href = "viewAllSightingsServlet">View list of all sightings.</a>

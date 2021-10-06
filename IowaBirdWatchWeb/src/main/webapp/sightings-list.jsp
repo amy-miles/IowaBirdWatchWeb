@@ -17,6 +17,7 @@
 				<tr>
 					<td><input type="radio" name="id"
 						value="${currentsighting.id}"></td>
+					<td>${currentsighting.siteDate }</td>
 					<td>${currentsighting.county }</td>
 					<td>${currentsighting.bird }</td>
 				</tr>

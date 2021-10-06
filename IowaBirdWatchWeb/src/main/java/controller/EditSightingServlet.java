@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -38,11 +40,22 @@ public class EditSightingServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BirdEntryHelper dao = new BirdEntryHelper();
 		
+		String month = request.getParameter("month");
+		String day = request.getParameter("day");
+		String year = request.getParameter("year");
 		String county = request.getParameter("county");
 		String bird = request.getParameter("bird");
 		Integer tempId = Integer.parseInt(request.getParameter("id"));
 		
-		BirdEntry itemToUpdate = dao.searchForSightingById(tempId);		
+		LocalDate ld;
+		try {
+			ld = LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
+		}catch(NumberFormatException e) {
+			ld = LocalDate.now();
+		}
+		
+		BirdEntry itemToUpdate = dao.searchForSightingById(tempId);	
+		itemToUpdate.setSiteDate(ld);
 		itemToUpdate.setCounty(county);
 		itemToUpdate.setBird(bird);
 		
